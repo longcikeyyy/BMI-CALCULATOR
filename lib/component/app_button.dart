@@ -1,0 +1,32 @@
+
+import 'package:bmi_calculator/constant/app_textstyle.dart';
+import 'package:flutter/material.dart';
+
+
+class AppButton extends StatelessWidget {
+  final String textButton;
+  final Function()? onTap;
+
+  const AppButton({super.key, required this.textButton, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width - 31 - 30,
+        height: 75,
+        decoration: BoxDecoration(color: Color(0xFFF4F3FF), 
+        borderRadius: BorderRadius.circular(63)
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          textButton,
+          style: AppTextstyle.tsMediumSize18White.copyWith(
+            color: Color(0xFF081854)
+          ),
+        ),
+      ),
+    );
+  }
+}
