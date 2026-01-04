@@ -26,7 +26,7 @@ class SplashScreen extends StatelessWidget {
           SizedBox(height:15),
           Text("Calculate your BMI and stay on top of\nyour wellness journey, effortlessly.",
           style: AppTextstyle.tsRegularSize16White.copyWith(
-            color:Color(0xFFC6C3F9)
+            color:AppColor.smallTextColor,
           )),
           SizedBox(height:38),
        AppButton(textButton: "Get Started"),   

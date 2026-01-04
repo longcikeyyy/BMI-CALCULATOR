@@ -1,4 +1,5 @@
 
+import 'package:bmi_calculator/constant/app_color.dart';
 import 'package:bmi_calculator/constant/app_textstyle.dart';
 import 'package:flutter/material.dart';
 
@@ -16,14 +17,14 @@ class AppButton extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width - 31 - 30,
         height: 75,
-        decoration: BoxDecoration(color: Color(0xFFF4F3FF), 
+        decoration: BoxDecoration(color:AppColor.buttonColor, 
         borderRadius: BorderRadius.circular(63)
         ),
         alignment: Alignment.center,
         child: Text(
           textButton,
           style: AppTextstyle.tsMediumSize18White.copyWith(
-            color: Color(0xFF081854)
+            color: AppColor.textButtonColor,
           ),
         ),
       ),
