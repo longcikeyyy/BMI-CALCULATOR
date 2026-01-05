@@ -24,7 +24,7 @@ class AppButton extends StatelessWidget {
         child: Text(
           textButton,
           style: AppTextstyle.tsMediumSize18White.copyWith(
-            color: AppColor.textButtonColor,
+            color: AppColor.naviColor,
           ),
         ),
       ),

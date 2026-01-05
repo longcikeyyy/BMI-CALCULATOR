@@ -35,5 +35,10 @@ class AppTextstyle {
     fontWeight: FontWeight.w500,
     color: AppColor.whiteColor,
   );
-
+  static TextStyle tsRegularSize18Navi = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: AppColor.naviColor,
+  );
 }
