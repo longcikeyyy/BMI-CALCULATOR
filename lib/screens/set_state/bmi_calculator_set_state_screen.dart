@@ -1,5 +1,7 @@
+import 'package:bmi_calculator/component/app_button.dart';
 import 'package:bmi_calculator/constant/app_color.dart';
 import 'package:bmi_calculator/constant/app_textstyle.dart';
+import 'package:bmi_calculator/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,98 +15,220 @@ class BmiCalculatorSetStateScreen extends StatefulWidget {
   
 
 class _BmiCalculatorSetStateScreenState extends State<BmiCalculatorSetStateScreen> {
-  int age = 30;
-  double height = 175;
-  double weight = 78;
-  void incrementAge() {
-    setState(() {
-      age++;
-    });
+  int _age = 30;
+  int _height = 175;
+  int _weight = 78;
+  bool _isMale = false;
+  
+  
+  void _updateAge(bool isIncrement){
+  setState((){
+    if(isIncrement && _age<120){
+      _age++;
+    }else if(!isIncrement && _age>1){
+      _age--;
+    }
+  });
   }
-  void decrementAge() {
-    setState(() {
-      age--;
-    });
-  }
-  String getAge() {
-    return age.toString();
-  }
+ void _updateWeight(bool isIncrement){
+  setState((){
+    if(isIncrement && _weight<300){
+      _weight++;
+    }else if(!isIncrement && _weight>10){
+      _weight--;
+    }
+  });
+ }
+ 
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      body:Column(
-        children:[
-          SizedBox(height:54,),
-          Center(child: Text("BMI CALCULATOR",
-          style:AppTextstyle.tsRegularSize18Navi)),
-          SizedBox(height:39),
-          Row(
-            children:[
-              Container(
-                width:156,
-                height:175,
-                margin:EdgeInsets.only(left:30),
-                decoration:BoxDecoration(
-                  color:AppColor.whiteColor,
-                  borderRadius:BorderRadius.circular(12)
+      body:Padding(
+        padding: const EdgeInsets.only(top:54,bottom:93,left:30,right:30),
+        child: Column(
+          children:[
+            Center(child: Text("BMI CALCULATOR",
+            style:AppTextstyle.tsRegularSize18Navi)),
+            SizedBox(height:39),
+            Row(
+              children:[
+                Container(
+                  padding:EdgeInsets.only(top:14),
+                  width:(156/393) * MediaQuery.of(context).size.width ,
+                  height:(175/852) * MediaQuery.of(context).size.height,
+                  
+                  decoration:BoxDecoration(
+                    color:AppColor.whiteColor,
+                    borderRadius:BorderRadius.circular(12)
+                  ),
+                  child:Column(
+                    children:[
+                        Text("Age",
+                          style:AppTextstyle.tsRegularSize18),
+                        Text(_age.toString(),
+                        style:AppTextstyle.tsBoldSize58Navi),
+                        SizedBox(height:3),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                  ElevatedButton(
+                                     onPressed: () => _updateAge(false),
+                                     style: ElevatedButton.styleFrom(
+                                     shape: CircleBorder(),
+                                     backgroundColor: AppColor.naviColor, // <-- Button color
+                                     foregroundColor: AppColor.whiteColor,), // <-- Splash color),
+                                     child: Icon(Icons.remove),
+                                    ),
+                                  ElevatedButton(
+                                     onPressed: () => _updateAge(true),
+                                     style: ElevatedButton.styleFrom(
+                                     shape: CircleBorder(),
+                                     backgroundColor: AppColor.naviColor, // <-- Button color
+                                     foregroundColor: AppColor.whiteColor,), // <-- Splash color),
+                                     child: Icon(Icons.add),
+                                    ),
+                                  
+                              ]
+                            ),
+                    ]
+                  )
                 ),
-                child:Column(
-                  children:[
-                      Padding(
-                        padding: const EdgeInsets.only(top:20.0),
-                        child: Text("Age",
-                        style:AppTextstyle.tsRegularSize18Navi.copyWith(
-                          color:Color(0xFF2F2E41))),
-                      ),
-                      //SizedBox(height:3),
-                      Text(getAge(),
-                      style:AppTextstyle.tsBoldSize25White.copyWith(
-                        color:AppColor.blueColor,fontSize:58)),
-                   Flexible(
-                     child: Row(
-                            children:[
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom:14),
-                                  child: ElevatedButton(
-                                   onPressed: () {
-                                    setState(() {
-                                      decrementAge();
-                                    });
-                                   },
-                                   style: ElevatedButton.styleFrom(
-                                   shape: CircleBorder(),
-                                   backgroundColor: AppColor.naviColor, // <-- Button color
-                                   foregroundColor: AppColor.whiteColor,), // <-- Splash color),
-                                   child: Icon(Icons.remove),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom:14),
-                                  child: ElevatedButton(
-                                   onPressed: () {
-                                    setState(() {
-                                      incrementAge();
-                                    });
-                                   },
-                                   style: ElevatedButton.styleFrom(
-                                   shape: CircleBorder(),
-                                   backgroundColor: AppColor.naviColor, // <-- Button color
-                                   foregroundColor: AppColor.whiteColor,), // <-- Splash color),
-                                   child: Icon(Icons.add),
-                                  ),
-                                ),
-                            ]
-                          ),
-                   ),
-                  ]
+                SizedBox(width:21),
+                Container(
+                  width:(156/393) * MediaQuery.of(context).size.width,
+                  height:(175/852) * MediaQuery.of(context).size.height,
+                  padding:EdgeInsets.only(top:14),
+                  decoration:BoxDecoration(
+                    color:AppColor.whiteColor,
+                    borderRadius:BorderRadius.circular(12)
+                  ),
+                  child:Column(
+                    children:[
+                          Text("Weight (KG)",
+                          style:AppTextstyle.tsRegularSize18),
+                        Text(_weight.toString(),
+                        style:AppTextstyle.tsBoldSize58Navi),
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                   ElevatedButton(
+                                     onPressed:()=> _updateWeight(false),
+                                     style: ElevatedButton.styleFrom(
+                                     shape: CircleBorder(),
+                                     backgroundColor: AppColor.naviColor, // <-- Button color
+                                     foregroundColor: AppColor.whiteColor,), // <-- Splash color),
+                                     child: Icon(Icons.remove),
+                                    ),
+                                  ElevatedButton(
+                                     onPressed:()=>_updateWeight(true),
+                                     style: ElevatedButton.styleFrom(
+                                     shape: CircleBorder(),
+                                     backgroundColor: AppColor.naviColor, // <-- Button color
+                                     foregroundColor: AppColor.whiteColor,), // <-- Splash color),
+                                     child: Icon(Icons.add),
+                                    ),
+                              ]
+                            ),
+                    ]
+                  )
                 )
+              ]
+            ),
+            SizedBox(height: 23),
+            Container(
+              
+              height: (183/852)*MediaQuery.of(context).size.height,
+              width: (333/393)*MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: AppColor.whiteColor,
+                borderRadius: BorderRadius.circular(12)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left :28,right:28,top:8),
+                child: Column(
+                  children: [
+                    Text("Height (CM)",style:AppTextstyle.tsRegularSize18Navi),
+                    
+                    Text(_height.toString(),
+                    style:AppTextstyle.tsBoldSize58Navi),
+                    Slider(
+                      onChanged:(value) => setState(() {
+                        _height = value.toInt();
+                      }),
+                      
+                      value: _height.toDouble(),
+                      min: 50,
+                      max: 300,
+                      activeColor: AppColor.naviColor,
+                      inactiveColor: AppColor.greyColor,  
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("50cm"),
+                        Text("300cm")
+                      ],
+                    )
+                  ]
+                ),
+              ),
+            ),
+            SizedBox(height:23),
+            Container(
+              decoration: BoxDecoration(
+                color:AppColor.whiteColor,
+                borderRadius: BorderRadius.circular(12)
+              ),
+              width:(333/393)* MediaQuery.of(context).size.width,
+              height:(135/852)*MediaQuery.of(context).size.height,
+              child:Padding(
+                padding: const EdgeInsets.only(top:14),
+                child: Column(
+                  children:[
+                    Text("Gender",style:AppTextstyle.tsRegularSize18),
+                    Row(
+                      
+                      mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                      children:[
+                        Text("Male",style:AppTextstyle.tsRegularSize18),
+                        Switch(
+                          activeTrackColor:AppColor.blueColor,
+                        
+                          activeThumbColor:AppColor.backgroundColor,
+                          value: _isMale,
+                          onChanged: (value) {
+                          setState(() {
+                          _isMale = value;
+                               });
+                               },
+                             ),
+                         Text("Female",style:AppTextstyle.tsRegularSize18)    
+                      ]
+                    )
+                  ]
+                        
+                ),
               )
-            ]
-          )
-        ]
-      )
+            ),
+            SizedBox(height:31),
+            AppButton(
+              textButton: "Calculate BMI",
+              color:AppColor.blueColor,
+              textColor:AppColor.whiteColor,
+              onTap:(){
+                if (_weight > 0 && _height > 0) { 
+                final double bmi = _weight / (_height * _height);
+                Navigator.push(context,MaterialPageRoute(builder: (context) => ResultScreen(bmi: bmi)));
+              
+              }
+              }
+              )
+          ]
+        ),
+      ),
+    
     );
     
   }

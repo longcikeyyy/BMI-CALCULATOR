@@ -8,4 +8,6 @@ class AppColor {
   static const Color buttonColor = Color(0xFFF4F3FF);
   static const Color naviColor = Color(0xFF081854);
   static const Color backgroundColor = Color(0xFFF4F3FF);
+  static const Color greyColor = Color(0xFFCCCCCC);
+  static const Color mediumTextColor = Color(0xFF2F2E41);
 }

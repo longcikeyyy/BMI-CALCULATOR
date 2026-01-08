@@ -2,6 +2,7 @@ import 'package:bmi_calculator/component/app_button.dart';
 import 'package:bmi_calculator/constant/app_color.dart';
 import 'package:bmi_calculator/constant/app_path.dart';
 import 'package:bmi_calculator/constant/app_textstyle.dart';
+import 'package:bmi_calculator/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -29,7 +30,12 @@ class SplashScreen extends StatelessWidget {
             color:AppColor.smallTextColor,
           )),
           SizedBox(height:38),
-       AppButton(textButton: "Get Started"),   
+       AppButton(
+        textButton: "Get Started",
+        onTap:(){
+          Navigator.pushNamed(context, AppRoutes.bmiCalculatorSetStateScreen);
+        }
+        ),   
         ],
       )
     );
