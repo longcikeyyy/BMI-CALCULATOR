@@ -54,7 +54,36 @@ class _BmiCalculatorSetStateScreenState extends State<BmiCalculatorSetStateScree
             SizedBox(height:39),
             Row(
               children:[
-                Container(
+                _builtUserAgeWidget(),
+                SizedBox(width:21),
+                _builtUserWeightWidget()
+              ]
+            ),
+            SizedBox(height: 23),
+                _builtUserHeightWidget(),
+            SizedBox(height:23),
+                _builtUserGenderWidget(),
+            SizedBox(height:31),
+            AppButton(
+              textButton: "Calculate BMI",
+              color:AppColor.blueColor,
+              textColor:AppColor.whiteColor,
+              onTap:(){
+                if (_weight > 0 && _height > 0) { 
+                final double bmi = _weight / ((_height / 100) * (_height / 100));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => ResultScreen(bmi: bmi)));
+              
+              }
+              }
+              )
+          ]
+        ),
+      ),
+    );
+    }
+    
+   Container _builtUserAgeWidget(){
+      return Container(
                   padding:EdgeInsets.only(top:14),
                   width:(156/393) * MediaQuery.of(context).size.width ,
                   height:(175/852) * MediaQuery.of(context).size.height,
@@ -94,9 +123,12 @@ class _BmiCalculatorSetStateScreenState extends State<BmiCalculatorSetStateScree
                             ),
                     ]
                   )
-                ),
-                SizedBox(width:21),
-                Container(
+                );         
+                
+  }
+
+   Container _builtUserWeightWidget(){
+      return Container(
                   width:(156/393) * MediaQuery.of(context).size.width,
                   height:(175/852) * MediaQuery.of(context).size.height,
                   padding:EdgeInsets.only(top:14),
@@ -133,12 +165,9 @@ class _BmiCalculatorSetStateScreenState extends State<BmiCalculatorSetStateScree
                             ),
                     ]
                   )
-                )
-              ]
-            ),
-            SizedBox(height: 23),
-            Container(
-              
+                );}
+   Container _builtUserHeightWidget(){
+                  return Container(
               height: (183/852)*MediaQuery.of(context).size.height,
               width: (333/393)*MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -174,9 +203,11 @@ class _BmiCalculatorSetStateScreenState extends State<BmiCalculatorSetStateScree
                   ]
                 ),
               ),
-            ),
-            SizedBox(height:23),
-            Container(
+            );
+                }
+
+   Container _builtUserGenderWidget(){
+    return Container(
               decoration: BoxDecoration(
                 color:AppColor.whiteColor,
                 borderRadius: BorderRadius.circular(12)
@@ -211,27 +242,6 @@ class _BmiCalculatorSetStateScreenState extends State<BmiCalculatorSetStateScree
                         
                 ),
               )
-            ),
-            SizedBox(height:31),
-            AppButton(
-              textButton: "Calculate BMI",
-              color:AppColor.blueColor,
-              textColor:AppColor.whiteColor,
-              onTap:(){
-                if (_weight > 0 && _height > 0) { 
-                final double bmi = _weight / (_height * _height);
-                Navigator.push(context,MaterialPageRoute(builder: (context) => ResultScreen(bmi: bmi)));
-              
-              }
-              }
-              )
-          ]
-        ),
-      ),
-    
-    );
-    
-  }
-
-
+            );
+   }
 }

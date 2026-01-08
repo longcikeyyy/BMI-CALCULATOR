@@ -53,4 +53,17 @@ class AppTextstyle {
     fontWeight: FontWeight.w400,
     color: AppColor.mediumTextColor,
   );
+  static TextStyle tsRegularSize28Navi = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 28,
+    fontWeight: FontWeight.w400,
+    color: AppColor.naviColor,
+  );
+  static TextStyle tsMediumSize24Navi = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+    color: AppColor.naviColor,
+  );
+
 }

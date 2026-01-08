@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.bmiCalculatorSetStateScreen,
+      initialRoute: AppRoutes.splashScreen,
       routes: AppRoutes.routes,
     );
   }
