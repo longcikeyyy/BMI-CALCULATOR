@@ -10,34 +10,38 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColor.blueColor,
-      body:Column(
+      body: Column(
         children: [
           SizedBox(height: 81),
-          Center(
-            child: Text("BMiDO",
-            style:AppTextstyle.tsItalicSize31White,),
-          ),
+          Center(child: Text("BMiDO", style: AppTextstyle.tsItalicSize31White)),
           SizedBox(height: 59),
           Image.asset(AppPath.imgPersonWithBike),
           SizedBox(height: 95),
-          Text("Get Started with\nTracking Your Health!",
-          style: AppTextstyle.tsBoldSize25White),
-          SizedBox(height:15),
-          Text("Calculate your BMI and stay on top of\nyour wellness journey, effortlessly.",
-          style: AppTextstyle.tsRegularSize16White.copyWith(
-            color:AppColor.smallTextColor,
-          )),
-          SizedBox(height:38),
-       AppButton(
-        textButton: "Get Started",
-        onTap:(){
-          Navigator.pushNamed(context, AppRoutes.bmiCalculatorSetStateScreen);
-        }
-        ),   
+          Text(
+            "Get Started with\nTracking Your Health!",
+            style: AppTextstyle.tsBoldSize25White,
+          ),
+          SizedBox(height: 15),
+          Text(
+            "Calculate your BMI and stay on top of\nyour wellness journey, effortlessly.",
+            style: AppTextstyle.tsRegularSize16White.copyWith(
+              color: AppColor.smallTextColor,
+            ),
+          ),
+          SizedBox(height: 38),
+          AppButton(
+            textButton: "Get Started",
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.bmiCalculatorSetStateScreen,
+              );
+            },
+          ),
         ],
-      )
+      ),
     );
   }
 }
