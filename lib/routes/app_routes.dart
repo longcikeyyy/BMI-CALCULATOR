@@ -3,6 +3,7 @@ import 'package:bmi_calculator/screens/result_screen.dart';
 import 'package:bmi_calculator/screens/set_state/bmi_calculator_set_state_screen.dart';
 import 'package:bmi_calculator/screens/splash_screen.dart';
 import 'package:bmi_calculator/screens/stateful_builder/bmi_calculator_stateful_builder_screen.dart';
+import 'package:bmi_calculator/screens/value_listenable_builder/bmi_calculator_value_listenable_builder_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -18,5 +19,6 @@ class AppRoutes {
     AppRoutes.bmiCalculatorSetStateScreen: (context) =>  BmiCalculatorSetStateScreen(),
     AppRoutes.resultScreen: (context) =>  ResultScreen(),
     AppRoutes.bmiCalculatorStatefulBuilderScreen: (context) =>  BmiCalculatorStatefulBuilderScreen(),
+    AppRoutes.bmiCalculatorValueListenableBuilderScreen: (context) =>  BmiCalculatorValueListenableScreen(),
   };
 }
