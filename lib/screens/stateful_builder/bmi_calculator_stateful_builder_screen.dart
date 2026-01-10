@@ -9,7 +9,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
     int age = 30;
     int weight = 78;
     int height = 175;
@@ -35,29 +34,15 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
             SizedBox(height: 39),
             Row(
               children: [
-                _buildUserAgeWidget(
-                  age: age,
-                  
-                ),
+                _buildUserAgeWidget(age: age),
                 SizedBox(width: 21),
-                _buildUserWeightWidget(
-                  weight: weight,
-                  
-                  
-                ),
+                _buildUserWeightWidget(weight: weight),
               ],
             ),
             SizedBox(height: 23),
-            _buildUserHeightWidget(
-              height: height,
-              onHeightChanged: (newHeight) => height = newHeight,
-              context: context,
-            ),
+            _buildUserHeightWidget(height: height),
             SizedBox(height: 23),
-            _buildUserGenderWidget(
-              isMale: isMale,
-             
-            ),
+            _buildUserGenderWidget(isMale: isMale),
             SizedBox(height: 31),
             AppButton(
               textButton: "Calculate BMI",
@@ -65,8 +50,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
               textColor: AppColor.whiteColor,
               onTap: () {
                 if (weight > 0 && height > 0) {
-                  final double bmi =
-                      weight / ((height / 100) * (height / 100));
+                  final double bmi = weight / ((height / 100) * (height / 100));
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -82,12 +66,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
     );
   }
 
- 
-
-  Widget _buildUserAgeWidget({
-    required int age,
-    
-  }) {
+  Widget _buildUserAgeWidget({required int age}) {
     return StatefulBuilder(
       builder: (context, setState) {
         void updateAge(bool isIncrement) {
@@ -97,7 +76,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
             } else if (!isIncrement && age > 1) {
               age--;
             }
-            
           });
         }
 
@@ -144,11 +122,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserWeightWidget({
-    required int weight,
-    
-    
-  }) {
+  Widget _buildUserWeightWidget({required int weight}) {
     return StatefulBuilder(
       builder: (context, setState) {
         void updateWeight(bool isIncrement) {
@@ -158,7 +132,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
             } else if (!isIncrement && weight > 10) {
               weight--;
             }
-            
           });
         }
 
@@ -204,11 +177,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserHeightWidget({
-    required int height,
-    required Function(int) onHeightChanged,
-    required BuildContext context,
-  }) {
+  Widget _buildUserHeightWidget({required int height}) {
     return StatefulBuilder(
       builder: (context, setState) {
         return Container(
@@ -227,7 +196,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
                 Slider(
                   onChanged: (value) => setState(() {
                     height = value.toInt();
-                    onHeightChanged(height);
                   }),
                   value: height.toDouble(),
                   min: 50,
@@ -247,10 +215,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserGenderWidget({
-    required bool isMale,
-    
-  }) {
+  Widget _buildUserGenderWidget({required bool isMale}) {
     return StatefulBuilder(
       builder: (context, setState) {
         return Container(
@@ -276,7 +241,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
                       onChanged: (value) {
                         setState(() {
                           isMale = value;
-                         
                         });
                       },
                     ),
