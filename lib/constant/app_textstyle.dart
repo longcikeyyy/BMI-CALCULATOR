@@ -1,7 +1,6 @@
 import 'package:bmi_calculator/constant/app_color.dart';
 import 'package:flutter/material.dart';
 
-
 class AppTextstyle {
   /// Regular -> 400
   /// Medium -> 500
@@ -11,13 +10,13 @@ class AppTextstyle {
 
   static String fontFamily = 'Inter';
 
- static TextStyle tsItalicSize31White = TextStyle(
+  static TextStyle tsItalicSize31White = TextStyle(
     fontFamily: fontFamily,
     fontSize: 31,
     fontWeight: FontWeight.w800,
     color: AppColor.whiteColor,
   );
- static TextStyle tsBoldSize25White = TextStyle(
+  static TextStyle tsBoldSize25White = TextStyle(
     fontFamily: fontFamily,
     fontSize: 25,
     fontWeight: FontWeight.w700,
@@ -29,7 +28,7 @@ class AppTextstyle {
     fontWeight: FontWeight.w400,
     color: AppColor.whiteColor,
   );
-   static TextStyle tsMediumSize18White = TextStyle(
+  static TextStyle tsMediumSize18White = TextStyle(
     fontFamily: fontFamily,
     fontSize: 18,
     fontWeight: FontWeight.w500,
@@ -65,5 +64,4 @@ class AppTextstyle {
     fontWeight: FontWeight.w500,
     color: AppColor.naviColor,
   );
-
 }

@@ -36,13 +36,13 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
               children: [
                 _buildUserAgeWidget(age: age),
                 SizedBox(width: 21),
-                _buildUserWeightWidget(weight: weight),
+                _buildUserWeightWidget(context: context, weight: weight),
               ],
             ),
             SizedBox(height: 23),
-            _buildUserHeightWidget(height: height),
+            _buildUserHeightWidget(context: context, height: height),
             SizedBox(height: 23),
-            _buildUserGenderWidget(isMale: isMale),
+            _buildUserGenderWidget(context: context, isMale: isMale),
             SizedBox(height: 31),
             AppButton(
               textButton: "Calculate BMI",
@@ -122,119 +122,140 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserWeightWidget({required int weight}) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        void updateWeight(bool isIncrement) {
-          setState(() {
-            if (isIncrement && weight < 300) {
-              weight++;
-            } else if (!isIncrement && weight > 10) {
-              weight--;
-            }
-          });
-        }
+  Container _buildUserWeightWidget({
+    required BuildContext context,
+    required int weight,
+  }) {
+    return Container(
+      width: (156 / 393) * MediaQuery.of(context).size.width,
+      height: (175 / 852) * MediaQuery.of(context).size.height,
+      padding: EdgeInsets.only(top: 14),
+      decoration: BoxDecoration(
+        color: AppColor.whiteColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Text("Weight (KG)", style: AppTextstyle.tsRegularSize18),
+          StatefulBuilder(
+            builder: (context, setState) {
+              void updateWeight(bool isIncrement) {
+                setState(() {
+                  if (isIncrement && weight < 300) {
+                    weight++;
+                  } else if (!isIncrement && weight > 10) {
+                    weight--;
+                  }
+                });
+              }
 
-        return Container(
-          width: (156 / 393) * MediaQuery.of(context).size.width,
-          height: (175 / 852) * MediaQuery.of(context).size.height,
-          padding: EdgeInsets.only(top: 14),
-          decoration: BoxDecoration(
-            color: AppColor.whiteColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text("Weight (KG)", style: AppTextstyle.tsRegularSize18),
-              Text(weight.toString(), style: AppTextstyle.tsBoldSize58Navi),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              return Column(
                 children: [
-                  ElevatedButton(
-                    onPressed: () => updateWeight(false),
-                    style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
-                      backgroundColor: AppColor.naviColor,
-                      foregroundColor: AppColor.whiteColor,
-                    ),
-                    child: Icon(Icons.remove),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => updateWeight(true),
-                    style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
-                      backgroundColor: AppColor.naviColor,
-                      foregroundColor: AppColor.whiteColor,
-                    ),
-                    child: Icon(Icons.add),
+                  Text(weight.toString(), style: AppTextstyle.tsBoldSize58Navi),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => updateWeight(false),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          backgroundColor: AppColor.naviColor,
+                          foregroundColor: AppColor.whiteColor,
+                        ),
+                        child: Icon(Icons.remove),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => updateWeight(true),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          backgroundColor: AppColor.naviColor,
+                          foregroundColor: AppColor.whiteColor,
+                        ),
+                        child: Icon(Icons.add),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
+              );
+            },
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 
-  Widget _buildUserHeightWidget({required int height}) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return Container(
-          height: (183 / 852) * MediaQuery.of(context).size.height,
-          width: (333 / 393) * MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: AppColor.whiteColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 28, right: 28, top: 8),
-            child: Column(
-              children: [
-                Text("Height (CM)", style: AppTextstyle.tsRegularSize18Navi),
-                Text(height.toString(), style: AppTextstyle.tsBoldSize58Navi),
-                Slider(
-                  onChanged: (value) => setState(() {
-                    height = value.toInt();
-                  }),
-                  value: height.toDouble(),
-                  min: 50,
-                  max: 300,
-                  activeColor: AppColor.naviColor,
-                  inactiveColor: AppColor.greyColor,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("50cm"), Text("300cm")],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildUserGenderWidget({required bool isMale}) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return Container(
-          decoration: BoxDecoration(
-            color: AppColor.whiteColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          width: (333 / 393) * MediaQuery.of(context).size.width,
-          height: (135 / 852) * MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 14),
-            child: Column(
-              children: [
-                Text("Gender", style: AppTextstyle.tsRegularSize18),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  Container _buildUserHeightWidget({
+    required BuildContext context,
+    required int height,
+  }) {
+    return Container(
+      height: (183 / 852) * MediaQuery.of(context).size.height,
+      width: (333 / 393) * MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: AppColor.whiteColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 28, right: 28, top: 8),
+        child: Column(
+          children: [
+            Text("Height (CM)", style: AppTextstyle.tsRegularSize18Navi),
+            StatefulBuilder(
+              builder: (context, setState) {
+                return Column(
                   children: [
-                    Text("Male", style: AppTextstyle.tsRegularSize18),
-                    Switch(
+                    Text(
+                      height.toString(),
+                      style: AppTextstyle.tsBoldSize58Navi,
+                    ),
+                    Slider(
+                      onChanged: (value) => setState(() {
+                        height = value.toInt();
+                      }),
+                      value: height.toDouble(),
+                      min: 50,
+                      max: 300,
+                      activeColor: AppColor.naviColor,
+                      inactiveColor: AppColor.greyColor,
+                    ),
+                  ],
+                );
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text("50cm"), Text("300cm")],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildUserGenderWidget({
+    required BuildContext context,
+    required bool isMale,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColor.whiteColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      width: (333 / 393) * MediaQuery.of(context).size.width,
+      height: (135 / 852) * MediaQuery.of(context).size.height,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 14),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Gender", style: AppTextstyle.tsRegularSize18),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("Male", style: AppTextstyle.tsRegularSize18),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    return Switch(
                       activeTrackColor: AppColor.blueColor,
                       activeThumbColor: AppColor.backgroundColor,
                       value: isMale,
@@ -243,15 +264,15 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
                           isMale = value;
                         });
                       },
-                    ),
-                    Text("Female", style: AppTextstyle.tsRegularSize18),
-                  ],
+                    );
+                  },
                 ),
+                Text("Female", style: AppTextstyle.tsRegularSize18),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

@@ -21,6 +21,12 @@ class _BmiCalculatorSetStateScreenState
 
   void _updateAge(bool isIncrement) {
     setState(() {
+      if (_age <= 1) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Age cannot be less than 1 year")),
+        );
+        return;
+      }
       if (isIncrement && _age < 120) {
         _age++;
       } else if (!isIncrement && _age > 1) {
@@ -31,6 +37,12 @@ class _BmiCalculatorSetStateScreenState
 
   void _updateWeight(bool isIncrement) {
     setState(() {
+      if (_weight <= 10) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Weight cannot be less than 10 kg")),
+        );
+        return;
+      }
       if (isIncrement && _weight < 300) {
         _weight++;
       } else if (!isIncrement && _weight > 10) {
@@ -61,9 +73,19 @@ class _BmiCalculatorSetStateScreenState
             SizedBox(height: 39),
             Row(
               children: [
-                _builtUserAgeWidget(),
+                _buildAgeWeightWidget(
+                  title: 'Age',
+                  value: _age.toString(),
+                  onMinusPressed: () => _updateAge(false),
+                  onPlusPressed: () => _updateAge(true),
+                ),
                 SizedBox(width: 21),
-                _builtUserWeightWidget(),
+                _buildAgeWeightWidget(
+                  title: 'Weight',
+                  value: _weight.toString(),
+                  onMinusPressed: () => _updateWeight(false),
+                  onPlusPressed: () => _updateWeight(true),
+                ),
               ],
             ),
             SizedBox(height: 23),
@@ -94,87 +116,62 @@ class _BmiCalculatorSetStateScreenState
     );
   }
 
-  Container _builtUserAgeWidget() {
+  /// DRY -> Don't Repeat Yourself
+
+  Container _buildAgeWeightWidget({
+    required String title,
+    required String value,
+    required VoidCallback onMinusPressed,
+    required VoidCallback onPlusPressed,
+  }) {
     return Container(
       padding: EdgeInsets.only(top: 14),
       width: (156 / 393) * MediaQuery.of(context).size.width,
       height: (175 / 852) * MediaQuery.of(context).size.height,
-
       decoration: BoxDecoration(
         color: AppColor.whiteColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
-          Text("Age", style: AppTextstyle.tsRegularSize18),
-          Text(_age.toString(), style: AppTextstyle.tsBoldSize58Navi),
+          Text(title, style: AppTextstyle.tsRegularSize18),
+          Text(value, style: AppTextstyle.tsBoldSize58Navi),
           SizedBox(height: 3),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => _updateAge(false),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  backgroundColor: AppColor.naviColor, // <-- Button color
-                  foregroundColor: AppColor.whiteColor,
-                ), // <-- Splash color),
-                child: Icon(Icons.remove),
-              ),
-              ElevatedButton(
-                onPressed: () => _updateAge(true),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  backgroundColor: AppColor.naviColor, // <-- Button color
-                  foregroundColor: AppColor.whiteColor,
-                ), // <-- Splash color),
-                child: Icon(Icons.add),
-              ),
-            ],
+          _buildMinusPlusButtonWidget(
+            onMinusPressed: onMinusPressed,
+            onPlusPressed: onPlusPressed,
           ),
         ],
       ),
     );
   }
 
-  Container _builtUserWeightWidget() {
-    return Container(
-      width: (156 / 393) * MediaQuery.of(context).size.width,
-      height: (175 / 852) * MediaQuery.of(context).size.height,
-      padding: EdgeInsets.only(top: 14),
-      decoration: BoxDecoration(
-        color: AppColor.whiteColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Text("Weight (KG)", style: AppTextstyle.tsRegularSize18),
-          Text(_weight.toString(), style: AppTextstyle.tsBoldSize58Navi),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => _updateWeight(false),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  backgroundColor: AppColor.naviColor, // <-- Button color
-                  foregroundColor: AppColor.whiteColor,
-                ), // <-- Splash color),
-                child: Icon(Icons.remove),
-              ),
-              ElevatedButton(
-                onPressed: () => _updateWeight(true),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  backgroundColor: AppColor.naviColor, // <-- Button color
-                  foregroundColor: AppColor.whiteColor,
-                ), // <-- Splash color),
-                child: Icon(Icons.add),
-              ),
-            ],
+  Row _buildMinusPlusButtonWidget({
+    required VoidCallback onMinusPressed,
+    required VoidCallback onPlusPressed,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: onMinusPressed,
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            backgroundColor: AppColor.naviColor,
+            foregroundColor: AppColor.whiteColor,
           ),
-        ],
-      ),
+          child: Icon(Icons.remove),
+        ),
+        ElevatedButton(
+          onPressed: () => onPlusPressed,
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            backgroundColor: AppColor.naviColor,
+            foregroundColor: AppColor.whiteColor,
+          ),
+          child: Icon(Icons.add),
+        ),
+      ],
     );
   }
 
@@ -191,19 +188,19 @@ class _BmiCalculatorSetStateScreenState
         child: Column(
           children: [
             Text("Height (CM)", style: AppTextstyle.tsRegularSize18Navi),
-
             Text(_height.toString(), style: AppTextstyle.tsBoldSize58Navi),
             Slider(
               onChanged: (value) => setState(() {
                 _height = value.toInt();
               }),
-
+              padding: EdgeInsets.zero,
               value: _height.toDouble(),
               min: 50,
               max: 300,
               activeColor: AppColor.naviColor,
               inactiveColor: AppColor.greyColor,
             ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [Text("50cm"), Text("300cm")],
@@ -222,31 +219,28 @@ class _BmiCalculatorSetStateScreenState
       ),
       width: (333 / 393) * MediaQuery.of(context).size.width,
       height: (135 / 852) * MediaQuery.of(context).size.height,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 14),
-        child: Column(
-          children: [
-            Text("Gender", style: AppTextstyle.tsRegularSize18),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Male", style: AppTextstyle.tsRegularSize18),
-                Switch(
-                  activeTrackColor: AppColor.blueColor,
-
-                  activeThumbColor: AppColor.backgroundColor,
-                  value: _isMale,
-                  onChanged: (value) {
-                    setState(() {
-                      _isMale = value;
-                    });
-                  },
-                ),
-                Text("Female", style: AppTextstyle.tsRegularSize18),
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Gender", style: AppTextstyle.tsRegularSize18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text("Male", style: AppTextstyle.tsRegularSize18),
+              Switch(
+                activeTrackColor: AppColor.blueColor,
+                activeThumbColor: AppColor.backgroundColor,
+                value: _isMale,
+                onChanged: (value) {
+                  setState(() {
+                    _isMale = value;
+                  });
+                },
+              ),
+              Text("Female", style: AppTextstyle.tsRegularSize18),
+            ],
+          ),
+        ],
       ),
     );
   }
