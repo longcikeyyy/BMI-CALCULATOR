@@ -9,10 +9,10 @@ class BmiCalculatorValueListenableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<int> ageNotifier = ValueNotifier<int>(30);
-    final ValueNotifier<int> weightNotifier = ValueNotifier<int>(78);
-    final ValueNotifier<int> heightNotifier = ValueNotifier<int>(175);
-    final ValueNotifier<bool> isMaleNotifier = ValueNotifier<bool>(false);
+     ValueNotifier<int> ageNotifier = ValueNotifier<int>(30);
+     ValueNotifier<int> weightNotifier = ValueNotifier<int>(78);
+     ValueNotifier<int> heightNotifier = ValueNotifier<int>(175);
+     ValueNotifier<bool> isMaleNotifier = ValueNotifier<bool>(false);
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
