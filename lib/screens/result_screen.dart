@@ -102,7 +102,7 @@ class ResultScreen extends StatelessWidget {
     );
   }
 
-  _getBMICategory(double bmi) {
+  String _getBMICategory(double bmi) {
     if (bmi < 18.5) {
       return 'Under BMI';
     } else if (bmi >= 18.5 && bmi < 24.9) {

@@ -36,7 +36,7 @@ class SplashScreen extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(
                 context,
-                AppRoutes.bmiCalculatorSetStateScreen,
+                AppRoutes.bmiCalculatorValueListenableBuilderScreen,
               );
             },
           ),
